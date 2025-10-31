@@ -322,7 +322,7 @@ class NetworkManager:
                 logger.error(f"Cannot toggle WLAN {wlan_id}: Not found.")
                 return False
 
-            new_state = not wlan.enabled
+            new_state = not wlan.get("enabled")
             update_payload = {"enabled": new_state}
 
             api_request = ApiRequest(
