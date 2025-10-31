@@ -246,7 +246,7 @@ async def create_firewall_policy(
     **Required** keys in `policy_data`:
     - name (string): A descriptive name for the firewall policy.
     - ruleset (string): The target ruleset (e.g., "WAN_IN", "LAN_OUT", "GUEST_LOCAL").
-    - action (string): The action to take (must be lowercase: "accept", "drop", "reject").
+    - action (string): The action to take (must be lowercase: "allow", "block", "reject").
     - index (integer): The position/priority of the rule within the ruleset (lower numbers execute first).
                        Note: API internally uses 'index', not 'rule_index'.
 
@@ -318,12 +318,12 @@ async def create_firewall_policy(
 
     # Enforce lowercase action (Validator might also handle this depending on schema definition)
     action = validated_data.get("action", "")
-    if not isinstance(action, str) or action.lower() not in ["accept", "drop", "reject"]:
+    if not isinstance(action, str) or action.lower() not in ["allow", "block", "reject"]:
         # This check might be redundant if the validator enforces enum values
-        error = f"Invalid 'action' after validation: '{action}'. Must be one of 'accept', 'drop', 'reject' (lowercase)."
+        error = f"Invalid 'action' after validation: '{action}'. Must be one of 'allow', 'block', 'reject' (lowercase)"
         logger.warning(error)
         return {"success": False, "error": error}
-    validated_data["action"] = action.lower() # Normalize in the validated data
+    validated_data["action"] = action.upper() # Normalize in the validated data
 
     # Use the validated and potentially cleaned/defaulted data
     policy_data_to_send = validated_data
@@ -382,7 +382,7 @@ async def update_firewall_policy(
             Allowed fields (all optional):
             - name (string): New name for the policy.
             - ruleset (string): Move to a different ruleset (e.g., "WAN_IN").
-            - action (string): New action ("accept", "drop", "reject").
+            - action (string): New action ("allow", "block", "reject").
             - rule_index (integer): New position index.
             - protocol (string): New protocol ("tcp", "udp", "icmp", "all").
             - src_address (string): New source IP/CIDR.

@@ -250,7 +250,7 @@ FIREWALL_POLICY_SCHEMA = {
     "properties": {
         "name": {"type": "string", "description": "Name of the firewall policy"},
         "ruleset": {"type": "string", "description": "The firewall ruleset (e.g., 'WAN_IN', 'LAN_OUT')"},
-        "action": {"type": "string", "enum": ["accept", "drop", "reject"], "description": "Policy action"},
+        "action": {"type": "string", "enum": ["allow", "block", "reject"], "description": "Policy action"},
         "rule_index": {"type": "integer", "description": "Rule index/order (lower numbers process first)"},
         "protocol": {"type": "string", "enum": ["all", "tcp", "udp", "icmp"], "default": "all", "description": "Protocol"},
         "src_address": {"type": "string", "description": "Source address or CIDR"},
@@ -286,7 +286,7 @@ FIREWALL_POLICY_CREATE_SCHEMA = {
             "description": "Target firewall ruleset.",
             "examples": ["LAN_OUT"]
         },
-        "action": {"type": "string", "enum": ["accept", "drop", "reject"], "description": "Action for matched traffic (must be lowercase).", "examples": ["drop"]},
+        "action": {"type": "string", "enum": ["allow", "block", "reject"], "description": "Action for matched traffic (must be lowercase).", "examples": ["block"]},
         "index": {"type": "integer", "minimum": 1, "description": "Rule priority index (lower numbers execute first). API uses 'index' for V2.", "examples": [2010]},
         "enabled": {"type": "boolean", "default": True, "description": "Whether the rule is enabled upon creation.", "examples": [True]},
         "description": {"type": "string", "default": "", "description": "Optional description for the rule.", "examples": ["Block specific Xbox device from WAN"]},
@@ -446,7 +446,7 @@ FIREWALL_POLICY_SIMPLE_SCHEMA = {
             ],
             "description": "Target firewall ruleset"
         },
-        "action": {"type": "string", "enum": ["accept", "drop", "reject"], "description": "Policy action"},
+        "action": {"type": "string", "enum": ["allow", "block", "reject"], "description": "Policy action"},
         "src": {
             "type": "object",
             "required": ["type", "value"],
