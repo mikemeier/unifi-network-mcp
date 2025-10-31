@@ -90,7 +90,7 @@ class NetworkManager:
             api_request = ApiRequest(
                 method="post",
                 path="/rest/networkconf",
-                json=network_data
+                data=network_data
             )
             response = await self._connection.request(api_request)
             logger.info(f"Create command sent for network '{network_data.get('name')}'")
@@ -139,7 +139,7 @@ class NetworkManager:
             api_request = ApiRequest(
                 method="put",
                 path=f"/rest/networkconf/{network_id}",
-                json=merged_data # Send full object
+                data=merged_data # Send full object
             )
             await self._connection.request(api_request)
             logger.info(f"Update command sent for network {network_id} with merged data.")
@@ -214,7 +214,7 @@ class NetworkManager:
             api_request = ApiRequest(
                 method="post",
                 path="/rest/wlanconf",
-                json=wlan_data
+                data=wlan_data
             )
             response = await self._connection.request(api_request)
             logger.info(f"Create command sent for WLAN '{wlan_data.get('name')}'")
@@ -275,7 +275,7 @@ class NetworkManager:
             api_request = ApiRequest(
                 method="put",
                 path=f"/rest/wlanconf/{wlan_id}",
-                json=merged_data # Send full object
+                data=merged_data # Send full object
             )
             await self._connection.request(api_request)
             logger.info(f"Update command sent for WLAN {wlan_id} with merged data.")
@@ -328,7 +328,7 @@ class NetworkManager:
             api_request = ApiRequest(
                 method="put",
                 path=f"/rest/wlanconf/{wlan_id}",
-                json=update_payload
+                data=update_payload
             )
             await self._connection.request(api_request)
             logger.info(f"Toggle command sent for WLAN {wlan_id} (new state: {'enabled' if new_state else 'disabled'})")
