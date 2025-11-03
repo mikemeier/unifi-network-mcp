@@ -1,6 +1,7 @@
 # Environment variables
 .env
 config.yaml
+docker-compose.local.yml
 
 # Python
 __pycache__/

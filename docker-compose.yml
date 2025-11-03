@@ -10,7 +10,7 @@ services:
       - UNIFI_PORT=${UNIFI_PORT:-443}
       - UNIFI_SITE=${UNIFI_SITE:-default}
       - UNIFI_VERIFY_SSL=${UNIFI_VERIFY_SSL:-false}
-      - CONFIG_PATH=/app/src/config/config.yaml
+      - CONFIG_PATH=${CONFIG_PATH:-/app/src/config/config.yaml}
       - UNIFI_MCP_HTTP_ENABLED=${UNIFI_MCP_HTTP_ENABLED:-false}
       - UNIFI_MCP_DIAGNOSTICS=${UNIFI_MCP_DIAGNOSTICS:-false}
       - UNIFI_MCP_DIAG_LOG_TOOL_ARGS=${UNIFI_MCP_DIAG_LOG_TOOL_ARGS:-true}
@@ -19,6 +19,6 @@ services:
       - UNIFI_MCP_LOG_LEVEL=${UNIFI_MCP_LOG_LEVEL:-INFO}
       - UNIFI_CONTROLLER_TYPE=${UNIFI_CONTROLLER_TYPE:-auto}
     volumes:
-      - ./src/config:/app/src/config
+      - ./config.yaml:/app/config.yaml
     restart: unless-stopped
     container_name: unifi-network-mcp
